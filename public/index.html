@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orbital Tutor – 3D &amp; AI Chemistry Tutor</title>
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1b2030;--mu:#5d6679;--ac:#3b5bdb;--bd:#dfe3ec;--ok:#2b8a3e;--er:#c92a2a;--cv:#eef1f8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#12151c;--card:#1b2030;--tx:#e8ebf3;--mu:#98a2b8;--ac:#7c9cff;--bd:#2c3347;--ok:#69db7c;--er:#ff8787;--cv:#0d1016}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#12151c;--card:#1b2030;--tx:#e8ebf3;--mu:#98a2b8;--ac:#7c9cff;--bd:#2c3347;--ok:#69db7c;--er:#ff8787;--cv:#0d1016}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+header{padding:18px 16px 6px;max-width:980px;margin:auto;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}h1{margin:0;font-size:1.5rem}header p{margin:2px 0 0;color:var(--mu)}
+nav{display:flex;gap:6px;flex-wrap:wrap;max-width:980px;margin:10px auto;padding:0 16px}
+nav button,.chip,.btn{font:inherit;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:7px 13px;border-radius:999px;cursor:pointer}
+nav button.on,.chip.on,.btn{background:var(--ac);color:#fff;border-color:var(--ac)}.btn.alt{background:var(--card);color:var(--tx);border-color:var(--bd)}
+main{max-width:980px;margin:auto;padding:0 16px 40px}section[hidden]{display:none}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin:12px 0}
+.card h2,.card h3{margin:0 0 8px}.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.mu{color:var(--mu);font-size:.9rem}table{border-collapse:collapse;width:100%}th,td{border-bottom:1px solid var(--bd);padding:6px 8px;text-align:left;vertical-align:top}
+.wrap{overflow-x:auto}.cv{width:100%;height:380px;background:var(--cv);border-radius:12px;overflow:hidden;position:relative}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}input[type=text]{font:inherit;padding:8px 10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);min-width:0}
+.bxr{display:flex;align-items:center;gap:4px;margin:3px 0}.bxr b{width:34px}.bx{width:26px;height:26px;border:1.5px solid var(--ac);display:inline-flex;align-items:center;justify-content:center;font-weight:700;border-radius:3px}
+#pt{display:grid;grid-template-columns:repeat(18,minmax(38px,1fr));gap:3px;min-width:700px}
+#pt button{font:inherit;font-size:.8rem;border:1px solid var(--bd);border-radius:6px;padding:3px 0;cursor:pointer;color:var(--tx);line-height:1.15}#pt small{display:block;font-size:.6rem;color:var(--mu)}
+.bs{background:rgba(59,91,219,.22)}.bp{background:rgba(43,138,62,.22)}.bd{background:rgba(230,119,0,.22)}.bf{background:rgba(190,75,219,.22)}
+.ex{color:var(--er);font-weight:600}.ok{color:var(--ok);font-weight:600}.opt{display:block;width:100%;text-align:left;margin:6px 0}
+#chat{height:340px;overflow-y:auto;border:1px solid var(--bd);border-radius:12px;padding:10px;background:var(--cv)}
+.m{padding:8px 12px;border-radius:12px;margin:6px 0;max-width:88%;white-space:pre-wrap}.m.me{background:var(--ac);color:#fff;margin-left:auto}.m.bot{background:var(--card);border:1px solid var(--bd)}
+.swl{display:flex;align-items:center;gap:10px;color:var(--mu);font-size:.9rem;cursor:pointer;flex:none;margin-top:4px;user-select:none}
+.sw{position:relative;width:51px;height:31px;border:0;padding:0;border-radius:999px;background:#c7c7cc;cursor:pointer;transition:background .25s;flex:none}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.3);transition:transform .25s}
+.sw[aria-checked="true"]{background:#34c759}.sw[aria-checked="true"]::after{transform:translateX(20px)}
+.sw:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+</style></head><body>
+<header><div><h1>⚛️ Orbital Tutor</h1><p>Learn electronic configuration with 3D orbitals, practice, a quiz, and an AI tutor.</p></div><label class="swl"><span id="themelbl">Dark mode</span><button id="theme" class="sw" role="switch" aria-checked="false" aria-label="Dark mode"></button></label></header>
+<nav id="nav"></nav>
+<main>
+<section id="t-learn">
+<div class="card"><h2>Quantum numbers</h2><div class="wrap"><table>
+<tr><th>Symbol</th><th>Name</th><th>Allowed values</th><th>Tells you</th></tr>
+<tr><td>n</td><td>Principal</td><td>1, 2, 3, …</td><td>Shell and size/energy of the orbital</td></tr>
+<tr><td>l</td><td>Angular momentum</td><td>0 to n − 1 (s=0, p=1, d=2, f=3)</td><td>Subshell and orbital shape</td></tr>
+<tr><td>mℓ</td><td>Magnetic</td><td>−l to +l</td><td>Orientation; gives 2l + 1 orbitals per subshell</td></tr>
+<tr><td>mₛ</td><td>Spin</td><td>+½ or −½</td><td>Direction of the electron’s spin</td></tr></table></div>
+<p class="mu">So s has 1 orbital (2 e⁻), p has 3 (6 e⁻), d has 5 (10 e⁻), f has 7 (14 e⁻).</p></div>
+<div class="g3">
+<div class="card"><h3>1. Aufbau principle</h3><p>Electrons fill the lowest-energy subshell available first.</p><p class="mu">Order: 1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s 5f 6d 7p</p></div>
+<div class="card"><h3>2. Pauli exclusion</h3><p>An orbital holds at most two electrons, and they must have opposite spins. No two electrons share all four quantum numbers.</p></div>
+<div class="card"><h3>3. Hund’s rule</h3><p>Within a subshell, electrons occupy separate orbitals with parallel spins before any pairing begins. Nitrogen’s 2p³ is ↑ ↑ ↑, not ↑↓ ↑ _.</p></div></div>
+<div class="card"><h2>Exceptions and why they happen</h2><div class="wrap"><table>
+<tr><th>Element</th><th>Expected</th><th>Actual</th><th>Reason</th></tr>
+<tr><td>Cr (24)</td><td>[Ar] 3d⁴ 4s²</td><td>[Ar] 3d⁵ 4s¹</td><td>Half-filled d subshell: each d orbital has one electron, which is extra stable.</td></tr>
+<tr><td>Cu (29)</td><td>[Ar] 3d⁹ 4s²</td><td>[Ar] 3d¹⁰ 4s¹</td><td>A completely filled d subshell is extra stable.</td></tr>
+<tr><td>Mo (42)</td><td>[Kr] 4d⁴ 5s²</td><td>[Kr] 4d⁵ 5s¹</td><td>Same half-filled d reasoning as Cr.</td></tr>
+<tr><td>Pd (46)</td><td>[Kr] 4d⁸ 5s²</td><td>[Kr] 4d¹⁰</td><td>Fully filled 4d; the 5s electrons drop in.</td></tr>
+<tr><td>Ag (47)</td><td>[Kr] 4d⁹ 5s²</td><td>[Kr] 4d¹⁰ 5s¹</td><td>Same as Cu.</td></tr>
+<tr><td>Au (79)</td><td>[Xe] 4f¹⁴ 5d⁹ 6s²</td><td>[Xe] 4f¹⁴ 5d¹⁰ 6s¹</td><td>Same as Cu.</td></tr></table></div>
+<p class="mu">Why: the 3d and 4s energies are very close, and half-filled or full subshells gain extra stability from electron exchange and symmetry. So one electron moves from s to d. Other exceptions (such as La, Ce, Gd, Pt, and several actinides) are highlighted on the Periodic Table tab.</p></div>
+</section>
+
+<section id="t-orb" hidden><div class="card"><h2>3D orbital viewer</h2>
+<div id="otypes" class="row"></div><div id="onames" class="row"></div>
+<div class="cv" id="orbv"></div>
+<p class="mu" id="odesc"></p><p class="mu">Drag to rotate, scroll or pinch to zoom. Shapes show each orbital’s angular part; blue/orange (or distinct colours when several are shown) mark opposite wave-function signs. Orbital size is not scaled by n.</p></div></section>
+
+<section id="t-prac" hidden><div class="card"><h2>Practice</h2>
+<p>Enter an element and its electron configuration (e.g. <code>1s2 2s2 2p6 3s1</code> or <code>[Ne] 3s1</code>).</p>
+<div class="row"><input type="text" id="pe" placeholder="Element (Fe or 26)" size="16"><input type="text" id="pc" placeholder="Configuration" size="34"></div>
+<div class="row"><button class="btn" id="chk">Check</button><button class="btn alt" id="shw">Show answer</button></div>
+<div id="pres"></div><div id="pbox"></div><div id="pchips" class="row"></div>
+<div class="cv" id="prv"></div><p class="mu" id="pcap">Check an answer, then pick a subshell to see its orbitals.</p></div></section>
+
+<section id="t-quiz" hidden><div class="card" id="quiz"></div></section>
+
+<section id="t-table" hidden><div class="card"><h2>Periodic table of electron configurations</h2>
+<p class="mu">Tap an element. <span style="color:var(--er)">Red-bordered</span> tiles are exceptions to simple Aufbau filling.</p>
+<div class="wrap"><div id="pt"></div></div></div><div class="card" id="eld">Select an element.</div></section>
+
+<section id="t-chat" hidden><div class="card"><h2>Ask the AI tutor</h2>
+<div id="chat"></div>
+<div class="row" id="sugg"></div>
+<div class="row"><input type="text" id="cq" placeholder="Ask about electronic configuration…" style="flex:1"><button class="btn" id="cs">Send</button></div></div></section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const SYM="H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og".split(" ");
+const ORD="1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s 5f 6d 7p".split(" "),CAP={s:2,p:6,d:10,f:14},NB=[2,10,18,36,54,86],NBS=["He","Ne","Ar","Kr","Xe","Rn"];
+const OV={24:"4s1 3d5",29:"4s1 3d10",41:"5s1 4d4",42:"5s1 4d5",44:"5s1 4d7",45:"5s1 4d8",46:"5s0 4d10",47:"5s1 4d10",57:"4f0 5d1 6s2",58:"4f1 5d1 6s2",64:"4f7 5d1 6s2",78:"6s1 5d9",79:"6s1 5d10",89:"5f0 6d1 7s2",90:"5f0 6d2 7s2",91:"5f2 6d1 7s2",92:"5f3 6d1 7s2",93:"5f4 6d1 7s2",96:"5f7 6d1 7s2",103:"5f14 6d0 7s2 7p1"};
+function cfg(z){const m={};let r=z;for(const o of ORD){const c=Math.min(r,CAP[o[1]]);if(c>0)m[o]=c;r-=c;if(r<=0)break}
+ if(OV[z])OV[z].split(" ").forEach(t=>{m[t.slice(0,2)]=+t.slice(2)});Object.keys(m).forEach(k=>{if(!m[k])delete m[k]});return m}
+const srt=m=>Object.keys(m).sort((a,b)=>a[0]-b[0]||"spdf".indexOf(a[1])-"spdf".indexOf(b[1]));
+const fmt=(m,ks)=>(ks||srt(m)).map(k=>k+"<sup>"+m[k]+"</sup>").join(" ");
+function short(z){let n=-1;NB.forEach((v,i)=>{if(v<z)n=i});if(n<0)return fmt(cfg(z));const m=cfg(z),c=cfg(NB[n]);return "["+NBS[n]+"] "+fmt(m,srt(m).filter(k=>m[k]!==c[k]))}
+function boxes(m){return srt(m).map(k=>{const n=2*"spdf".indexOf(k[1])+1,c=m[k];let h="";for(let i=0;i<n;i++)h+=`<span class="bx">${i<c?"↑":""}${c>n&&i<c-n?"↓":""}</span>`;return `<div class="bxr"><b>${k}</b>${h}</div>`}).join("")}
+const ORB={s:["s"],p:["px","py","pz"],d:["dz²","dxz","dyz","dxy","dx²−y²"],f:["fz³","fxz²","fyz²","fxyz","fz(x²−y²)","fx(x²−3y²)","fy(3x²−y²)"]};
+const Y={s:()=>1,px:x=>x,py:(x,y)=>y,pz:(x,y,z)=>z,"dz²":(x,y,z)=>3*z*z-1,dxz:(x,y,z)=>x*z,dyz:(x,y,z)=>y*z,dxy:(x,y)=>x*y,"dx²−y²":(x,y)=>x*x-y*y,"fz³":(x,y,z)=>z*(5*z*z-3),"fxz²":(x,y,z)=>x*(5*z*z-1),"fyz²":(x,y,z)=>y*(5*z*z-1),fxyz:(x,y,z)=>x*y*z,"fz(x²−y²)":(x,y,z)=>z*(x*x-y*y),"fx(x²−3y²)":(x,y)=>x*(x*x-3*y*y),"fy(3x²−y²)":(x,y)=>y*(3*x*x-y*y)};
+function ru(){let x,y,z,l;do{x=Math.random()*2-1;y=Math.random()*2-1;z=Math.random()*2-1;l=x*x+y*y+z*z}while(l>1||l<.01);l=Math.sqrt(l);return[x/l,y/l,z/l]}
+function Viewer(el){
+ const H=380,W=()=>el.clientWidth||600;let lw=W();
+ const r=new THREE.WebGLRenderer({antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.setSize(lw,H);el.appendChild(r.domElement);r.domElement.style.touchAction="none";
+ const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(45,lw/H,.1,100);cam.position.z=5;
+ const g=new THREE.Group();sc.add(g);g.add(new THREE.AxesHelper(1.9));g.rotation.x=.4;
+ let pts=[],drag=false,px=0,py=0;
+ el.addEventListener("pointerdown",e=>{drag=true;px=e.clientX;py=e.clientY});
+ addEventListener("pointerup",()=>drag=false);
+ addEventListener("pointermove",e=>{if(!drag)return;g.rotation.y+=(e.clientX-px)*.01;g.rotation.x+=(e.clientY-py)*.01;px=e.clientX;py=e.clientY});
+ el.addEventListener("wheel",e=>{e.preventDefault();cam.position.z=Math.min(10,Math.max(2.5,cam.position.z+e.deltaY*.005))},{passive:false});
+ function show(names){pts.forEach(p=>{g.remove(p);p.geometry.dispose()});pts=[];
+  names.forEach((nm,i)=>{const f=Y[nm],N=7000;let mx=0;for(let k=0;k<1500;k++){const u=ru();mx=Math.max(mx,Math.abs(f(...u)))}
+   const pos=new Float32Array(N*3),col=new Float32Array(N*3),c=new THREE.Color();
+   for(let k=0;k<N;k++){const u=ru(),v=f(...u),rr=Math.abs(v)/mx*1.7*Math.sqrt(Math.random());
+    pos.set([u[0]*rr,u[1]*rr,u[2]*rr],k*3);
+    if(names.length>1)c.setHSL(i/names.length,.8,v>0?.6:.38);else c.setHSL(v>0?.6:.07,.85,.58);
+    col.set([c.r,c.g,c.b],k*3)}
+   const geo=new THREE.BufferGeometry();geo.setAttribute("position",new THREE.BufferAttribute(pos,3));geo.setAttribute("color",new THREE.BufferAttribute(col,3));
+   const p=new THREE.Points(geo,new THREE.PointsMaterial({size:.025,vertexColors:true,transparent:true,opacity:.85}));g.add(p);pts.push(p)})}
+ (function loop(){requestAnimationFrame(loop);if(!drag)g.rotation.y+=.004;const w=W();if(w!==lw&&w>0){lw=w;r.setSize(w,H);cam.aspect=w/H;cam.updateProjectionMatrix()}r.render(sc,cam)})();
+ return{show}}
+const V={};
+const TABS=[["learn","Learn"],["orb","3D Orbitals"],["prac","Practice"],["quiz","Quiz"],["table","Periodic Table"],["chat","AI Tutor"]];
+$("#nav").innerHTML=TABS.map(t=>`<button data-t="${t[0]}">${t[1]}</button>`).join("");
+function go(id){document.querySelectorAll("main>section").forEach(s=>s.hidden=s.id!=="t-"+id);document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===id));
+ if(id==="orb"&&!V.o)initOrb();if(id==="prac"&&!V.p)V.p=Viewer($("#prv"));}
+$("#nav").onclick=e=>{if(e.target.dataset.t)go(e.target.dataset.t)};
+// 3D orbitals tab
+let ot="s";const DESC={s:"l = 0, mℓ = 0 → 1 orbital (spherical)",p:"l = 1, mℓ = −1, 0, +1 → 3 orbitals (dumbbells along x, y, z)",d:"l = 2, mℓ = −2…+2 → 5 orbitals (four-lobed plus dz²)",f:"l = 3, mℓ = −3…+3 → 7 orbitals (complex multi-lobed shapes)"};
+function initOrb(){V.o=Viewer($("#orbv"));drawOrb()}
+function drawOrb(sel){$("#otypes").innerHTML="spdf".split("").map(t=>`<button class="chip ${t===ot?"on":""}" data-t="${t}">${t}</button>`).join("");
+ $("#onames").innerHTML=["All",...ORB[ot]].map(n=>`<button class="chip ${(sel||"All")===n?"on":""}" data-n="${n}">${n}</button>`).join("");
+ $("#odesc").textContent=DESC[ot];V.o.show(sel&&sel!=="All"?[sel]:ORB[ot])}
+$("#otypes").onclick=e=>{if(e.target.dataset.t){ot=e.target.dataset.t;drawOrb()}};
+$("#onames").onclick=e=>{if(e.target.dataset.n)drawOrb(e.target.dataset.n)};
+// Practice
+function findEl(t){t=t.trim();if(/^\d+$/.test(t)){const z=+t;return z>=1&&z<=118?z:0}return SYM.findIndex(s=>s.toLowerCase()===t.toLowerCase())+1}
+function parse(t){t=t.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g,c=>"⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(c));let m={};const nm=t.match(/\[(He|Ne|Ar|Kr|Xe|Rn)\]/);if(nm)m={...cfg(NB[NBS.indexOf(nm[1])])};
+ for(const x of t.matchAll(/([1-7])([spdf])\s*\^?(\d{1,2})/g))m[x[1]+x[2]]=+x[3];Object.keys(m).forEach(k=>{if(!m[k])delete m[k]});return m}
+const tot=m=>Object.values(m).reduce((a,b)=>a+b,0);
+function pshow(z){const b=cfg(z);$("#pbox").innerHTML=`<p>${SYM[z-1]} (Z = ${z}): ${fmt(b)}</p>`+boxes(b);
+ $("#pchips").innerHTML=srt(b).map(k=>`<button class="chip" data-k="${k}">${k}</button>`).join("")}
+$("#chk").onclick=()=>{const z=findEl($("#pe").value);if(!z){$("#pres").innerHTML='<p class="ex">Enter a valid symbol (e.g. Fe) or atomic number (1–118).</p>';return}
+ const a=parse($("#pc").value),b=cfg(z),ks=[...new Set([...Object.keys(a),...Object.keys(b)])];
+ const d=ks.filter(k=>(a[k]||0)!==(b[k]||0)).map(k=>`<li>${k}: you wrote ${a[k]||0}, expected ${b[k]||0}</li>`).join("");
+ $("#pres").innerHTML=d?`<p class="ex">Not quite. You entered ${tot(a)} electrons; ${SYM[z-1]} has ${z}.</p><ul>${d}</ul>`+(OV[z]?'<p class="mu">Hint: this element is an Aufbau exception.</p>':""):`<p class="ok">Correct! Pick a subshell below to see its orbitals.</p>`;pshow(z)};
+$("#shw").onclick=()=>{const z=findEl($("#pe").value);if(!z)return;const b=cfg(z);$("#pc").value=srt(b).map(k=>k+b[k]).join(" ");pshow(z)};
+$("#pchips").onclick=e=>{const k=e.target.dataset.k;if(!k)return;document.querySelectorAll("#pchips .chip").forEach(c=>c.classList.toggle("on",c===e.target));V.p.show(ORB[k[1]]);$("#pcap").textContent="Showing the "+ORB[k[1]].length+" orbital(s) of the "+k+" subshell.";};
+// Quiz
+const mk=(t,q)=>({t,q});
+const QZ={
+easy:[
+mk("Quiz 1: Basics",[
+["What is the maximum number of electrons in an s subshell?",["1","2","6","10"],1,"One orbital holds two electrons."],
+["Which letter corresponds to l = 1?",["s","p","d","f"],1,"l = 0, 1, 2, 3 correspond to s, p, d, f."],
+["How many orbitals are in a p subshell?",["1","3","5","7"],1,"mℓ = −1, 0, +1 gives 3 orbitals."],
+["The Aufbau principle says electrons…",["fill the lowest-energy subshells first","pair up before spreading out","must all have the same spin","fill the highest subshell first"],0,"Aufbau means building up from the lowest energy."],
+["Which orbital shape is spherical?",["s","p","d","f"],0,"Every s orbital is spherical."]]),
+mk("Quiz 2: Filling up",[
+["What is the electron configuration of hydrogen?",["1s²","1s¹","2s¹","1p¹"],1,"Hydrogen has one electron, in 1s."],
+["Maximum electrons in a d subshell?",["6","10","14","2"],1,"5 orbitals × 2 electrons = 10."],
+["How many electrons does a neutral carbon atom (Z = 6) have?",["4","6","12","8"],1,"A neutral atom has as many electrons as its atomic number."],
+["Which fills first, 2s or 2p?",["2s","2p","Both at once","3s"],0,"2s is lower in energy than 2p."],
+["How many orbitals are in an f subshell?",["3","5","7","9"],2,"l = 3 gives 2l + 1 = 7 orbitals."]]),
+mk("Quiz 3: Quantum numbers",[
+["Which quantum number tells you the shell?",["n","l","mℓ","mₛ"],0,"n is the principal quantum number (the shell)."],
+["What are the possible values of the spin quantum number?",["+½ or −½","0 or 1","−1, 0, +1","Any whole number"],0,"An electron’s spin is +½ or −½."],
+["What is the configuration of helium?",["1s²","1s¹ 2s¹","2s²","1s¹"],0,"Helium has two electrons, both in 1s."],
+["Maximum electrons in the second shell (n = 2)?",["2","4","8","18"],2,"2s (2) + 2p (6) = 8."],
+["Which subshell has 5 orbitals?",["s","p","d","f"],2,"d: l = 2, so 5 orbitals."]])],
+medium:[
+mk("Quiz 1: Writing configurations",[
+["What is the configuration of oxygen (Z = 8)?",["1s² 2s² 2p⁴","1s² 2s² 2p⁶","1s² 2s⁴ 2p²","1s² 2s² 2p³"],0,"8 electrons: 2 + 2 + 4."],
+["How many unpaired electrons does carbon (2p²) have?",["0","1","2","3"],2,"Hund’s rule puts the two 2p electrons in separate orbitals."],
+["Which subshell fills right after 3p?",["3d","4s","4p","4d"],1,"4s is lower in energy than 3d."],
+["Which values of l are allowed for n = 3?",["0, 1, 2","1, 2, 3","0, 1, 2, 3","1, 2"],0,"l runs from 0 to n − 1."],
+["What is the shorthand configuration of sodium (Z = 11)?",["[Ne] 3s¹","[Ne] 3s²","[Ar] 4s¹","[He] 2s² 2p⁶ 3s¹"],0,"Neon’s core plus one 3s electron."]]),
+mk("Quiz 2: Rules and ions",[
+["What is the configuration of Mg²⁺ (Mg is Z = 12)?",["1s² 2s² 2p⁶","1s² 2s² 2p⁶ 3s²","1s² 2s² 2p⁴","1s² 2s² 2p⁶ 3s¹"],0,"Mg loses its two 3s electrons, leaving the neon configuration."],
+["An orbital diagram shows two electrons in one box, both pointing up (↑↑). Which rule is broken?",["Aufbau","Pauli exclusion","Hund’s rule","None"],1,"Two electrons in one orbital must have opposite spins."],
+["How many orbitals are in the n = 3 shell in total?",["3","5","9","18"],2,"There are n² orbitals: 1 + 3 + 5 = 9."],
+["How many unpaired electrons does oxygen (2p⁴) have?",["0","1","2","4"],2,"Two 2p orbitals have single electrons and one is paired."],
+["What is the configuration of Cl⁻ (Cl is Z = 17)?",["…3s² 3p⁵","…3s² 3p⁶","…3s² 3p⁴","…3s² 3p⁶ 4s¹"],1,"Gaining one electron fills 3p, matching argon."]]),
+mk("Quiz 3: Order and counting",[
+["What is the shorthand configuration of calcium (Z = 20)?",["[Ar] 4s²","[Ar] 3d²","[Ne] 3s²","[Ar] 4s¹"],0,"After argon, the next two electrons go into 4s."],
+["Which set of quantum numbers (n, l, mℓ, mₛ) is allowed?",["(2, 2, 0, +½)","(3, 1, −1, −½)","(1, 1, 0, +½)","(2, 0, 1, +½)"],1,"l must be less than n, and mℓ must lie between −l and +l."],
+["Which subshell fills right after 4p?",["4d","5s","5p","4f"],1,"The order is …4p, 5s, 4d, 5p…"],
+["Which of these subshells fills last: 3p, 4s, 3d, 4p?",["3p","4s","3d","4p"],3,"The order is 3p, 4s, 3d, 4p."],
+["How many unpaired electrons does iron (Z = 26, [Ar] 3d⁶ 4s²) have?",["2","3","4","6"],2,"3d⁶ has one paired orbital and four single electrons."]])],
+hard:[
+mk("Quiz 1: Exceptions",[
+["What is the actual configuration of copper?",["[Ar] 3d⁹ 4s²","[Ar] 3d¹⁰ 4s¹","[Ar] 3d¹⁰ 4s²","[Ar] 3d⁸ 4s² 4p¹"],1,"A full 3d subshell is extra stable, so one 4s electron moves in."],
+["Which element has the configuration [Kr] 4d¹⁰ with no 5s electrons?",["Ag","Pd","Cd","Rh"],1,"Palladium is an exception: both 5s electrons move into 4d."],
+["What is the actual configuration of molybdenum (Z = 42)?",["[Kr] 4d⁴ 5s²","[Kr] 4d⁵ 5s¹","[Kr] 4d⁶","[Kr] 4d¹⁰ 5s¹"],1,"A half-filled 4d subshell is favoured, as in chromium."],
+["How many unpaired electrons does chromium ([Ar] 3d⁵ 4s¹) have?",["4","5","6","0"],2,"Five in 3d plus one in 4s are all unpaired."],
+["Why do exceptions like Cr and Cu occur?",["3d and 4s are close in energy, and half-filled or full subshells are extra stable","Pauli exclusion forbids 4s²","4s is always higher than 3d, so it fills last","Electrons repel the nucleus"],0,"A small energy gap lets an electron move to gain extra stability."]]),
+mk("Quiz 2: Ions and magnetism",[
+["What is the configuration of Fe³⁺ (Fe is [Ar] 3d⁶ 4s²)?",["[Ar] 3d⁶ 4s²","[Ar] 3d⁵","[Ar] 3d³ 4s²","[Ar] 3d⁴ 4s¹"],1,"The 4s electrons leave first, then one 3d electron."],
+["How many unpaired electrons does Fe³⁺ have?",["3","4","5","6"],2,"3d⁵ has one electron in each of five orbitals."],
+["What is the configuration of Cu⁺?",["[Ar] 3d⁹ 4s¹","[Ar] 3d¹⁰","[Ar] 3d⁸ 4s²","[Ar] 3d⁹ 4s²"],1,"Cu loses its single 4s electron, leaving a full 3d."],
+["When a transition metal forms a cation, which electrons leave first?",["3d electrons","The outermost s electrons","Core electrons","They leave at random"],1,"The ns electrons are removed before (n−1)d electrons."],
+["What is the configuration of Zn²⁺ (Zn is Z = 30)?",["[Ar] 3d⁸ 4s²","[Ar] 3d¹⁰","[Ar] 3d⁹ 4s¹","[Ar] 4s²"],1,"Zn ([Ar] 3d¹⁰ 4s²) loses both 4s electrons."]]),
+mk("Quiz 3: Advanced",[
+["What is the maximum number of electrons in the n = 4 shell?",["18","24","32","50"],2,"The maximum is 2n² = 32."],
+["How many orbitals are in the n = 4 shell?",["8","16","32","9"],1,"There are n² = 16 orbitals."],
+["What is the actual configuration of gadolinium (Z = 64)?",["[Xe] 4f⁸ 6s²","[Xe] 4f⁷ 5d¹ 6s²","[Xe] 4f⁶ 5d² 6s²","[Xe] 4f⁷ 6s²"],1,"A half-filled 4f subshell is favoured, so one electron goes to 5d."],
+["Which set of quantum numbers (n, l, mℓ, mₛ) is NOT allowed?",["(4, 3, −3, +½)","(3, 2, 2, −½)","(2, 1, 0, +½)","(3, 3, 0, +½)"],3,"l must be less than n, and (3, 3, …) breaks that."],
+["How many unpaired electrons does Mn²⁺ (Mn is [Ar] 3d⁵ 4s²) have?",["3","4","5","7"],2,"Mn²⁺ is 3d⁵, with five single electrons."]])]};
+const LV=[["easy","Easy"],["medium","Medium"],["hard","Hard"]];
+let lv="easy",cur=null,qi=0,sc=0;
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function best(k,v){try{const o=JSON.parse(localStorage.getItem("qbest")||"{}");if(v===undefined)return o[k];if(!(o[k]>=v)){o[k]=v;localStorage.setItem("qbest",JSON.stringify(o))}}catch(e){}}
+function menu(){$("#quiz").innerHTML=`<h2>Quizzes</h2><div class="row">${LV.map(l=>`<button class="chip ${l[0]===lv?"on":""}" data-l="${l[0]}">${l[1]}</button>`).join("")}</div><div class="g3">${QZ[lv].map((z,i)=>{const b=best(lv+i);return `<div class="card"><h3>${z.t}</h3><p class="mu">${z.q.length} questions${b!==undefined?" · Best: "+b+"/"+z.q.length:""}</p><button class="btn" data-s="${i}">Start</button></div>`}).join("")}<div class="card"><h3>Random mix</h3><p class="mu">10 random ${lv} questions</p><button class="btn" data-s="r">Start</button></div></div>`}
+function start(s){let qs,t;if(s==="r"){qs=shuf(QZ[lv].flatMap(z=>z.q)).slice(0,10);t="Random mix"}else{const z=QZ[lv][+s];qs=z.q;t=z.t}
+ cur={key:s,t,qs:qs.map(x=>({q:x[0],o:shuf(x[1].map((v,i)=>[v,i===x[2]])),e:x[3]}))};qi=0;sc=0;render()}
+function render(){const q=$("#quiz");
+ if(qi>=cur.qs.length){if(cur.key!=="r")best(lv+cur.key,sc);q.innerHTML=`<h2>${cur.t} complete</h2><p>Your score: <b>${sc} / ${cur.qs.length}</b></p><div class="row"><button class="btn" data-act="retry">Try again</button><button class="btn alt" data-act="menu">All quizzes</button></div>`;return}
+ const x=cur.qs[qi];q.innerHTML=`<p class="mu">${lv.toUpperCase()} · ${cur.t}</p><h2>Question ${qi+1} of ${cur.qs.length}</h2><p>${x.q}</p>`+x.o.map((o,i)=>`<button class="chip opt" data-i="${i}">${o[0]}</button>`).join("")+'<div id="qf"></div>'}
+function answer(i){const x=cur.qs[qi],ok=x.o[i][1];if(ok)sc++;document.querySelectorAll("#quiz .opt").forEach((b,j)=>{b.disabled=true;if(x.o[j][1])b.style.borderColor="var(--ok)"});
+ $("#qf").innerHTML=`<p class="${ok?"ok":"ex"}">${ok?"Correct!":"Not quite."}</p><p>${x.e}</p><button class="btn" data-act="next">${qi+1<cur.qs.length?"Next":"See score"}</button>`}
+$("#quiz").onclick=e=>{const d=e.target.dataset;if(d.l){lv=d.l;menu()}else if(d.s!==undefined)start(d.s);else if(d.i!==undefined)answer(+d.i);else if(d.act==="next"){qi++;render()}else if(d.act==="menu")menu();else if(d.act==="retry")start(cur.key)};
+menu();
+// Periodic table
+function pos(z){if(z==1)return[1,1];if(z==2)return[1,18];if(z<=4)return[2,z-2];if(z<=10)return[2,z+8];if(z<=12)return[3,z-10];if(z<=18)return[3,z];if(z<=36)return[4,z-18];if(z<=54)return[5,z-36];if(z<=56)return[6,z-54];if(z<=71)return[9,z-54];if(z<=86)return[6,z-68];if(z<=88)return[7,z-86];if(z<=103)return[10,z-86];return[7,z-100]}
+$("#pt").innerHTML=SYM.map((s,i)=>{const z=i+1,[r,c]=pos(z),k=srt(cfg(z)).pop(),cl=(r>8||z==57||z==89)?"bf":z<=2||[1,2].includes(c)&&r<8?"bs":(c>=13?"bp":"bd");
+ return `<button class="${cl}" data-z="${z}" style="grid-row:${r};grid-column:${c};${OV[z]?"border-color:var(--er);border-width:2px":""}"><small>${z}</small>${s}</button>`}).join("");
+$("#pt").onclick=e=>{const b=e.target.closest("button");if(!b)return;const z=+b.dataset.z,m=cfg(z);
+ $("#eld").innerHTML=`<h3>${SYM[z-1]} — Z = ${z}</h3><p>Full: ${fmt(m)}</p><p>Shorthand: ${short(z)}</p>${OV[z]?'<p class="ex">Exception to simple Aufbau filling.</p>':""}${boxes(m)}`};
+// AI tutor
+const hist=[];
+function add(c,t){const d=document.createElement("div");d.className="m "+c;d.textContent=t;$("#chat").appendChild(d);$("#chat").scrollTop=1e9;return d}
+add("bot","Hi! Ask me anything about electronic configuration, orbitals, quantum numbers or the filling rules.");
+["Why is Cr 3d⁵ 4s¹?","What is the difference between Pauli and Hund?","Write the configuration of Fe³⁺"].forEach(s=>{const b=document.createElement("button");b.className="chip";b.textContent=s;b.onclick=()=>ask(s);$("#sugg").appendChild(b)});
+async function ask(q){q=q.trim();if(!q)return;add("me",q);hist.push({role:"user",content:q});const el=add("bot","Thinking…");
+ try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:hist.slice(-10)})});
+  const d=await r.json();if(!r.ok)throw new Error(d.error||"I couldn’t answer that right now.");el.textContent=d.reply;hist.push({role:"assistant",content:d.reply})}
+ catch(e){el.textContent="Sorry, "+(e.message||"I couldn’t answer that right now.");hist.pop()}}
+$("#cs").onclick=()=>{const v=$("#cq").value;$("#cq").value="";ask(v)};$("#cq").onkeydown=e=>{if(e.key==="Enter")$("#cs").click()};
+// Theme (light / dark)
+const root=document.documentElement;
+function applyTheme(t){root.dataset.theme=t;$("#theme").setAttribute("aria-checked",t==="dark");$("#themelbl").textContent=t==="dark"?"Light mode":"Dark mode";try{localStorage.setItem("theme",t)}catch(e){}}
+let savedTheme=null;try{savedTheme=localStorage.getItem("theme")}catch(e){}
+applyTheme(savedTheme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));
+$("#theme").onclick=()=>applyTheme(root.dataset.theme==="dark"?"light":"dark");
+go("learn");
+</script></body></html>
